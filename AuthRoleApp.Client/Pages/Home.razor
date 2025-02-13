@@ -1,0 +1,17 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+
+<PageTitle>Ingresar</PageTitle>
+
+
+<Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+	<Authorized>
+		<h1>Bienvenido @context.User.Identity?.Name</h1>
+
+		<CerrarSesion />
+	</Authorized>
+	<NotAuthorized>
+		<Login />
+	</NotAuthorized>
+</Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+

@@ -1,0 +1,44 @@
+﻿@using AuthRoleApp.Shared
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Diagnostics
+
+@inject IJSRuntime JS
+@inject AuthenticationStateProvider AuthStateProv
+@inject HttpClient Http
+
+<h3 class="text-center">Acceder</h3>
+
+<form>
+    <div class="mb-3">
+        <label for="emailInput" class="form-label">Correo</label>
+        <input type="text" class="form-control" id="emailInput" @bind="usuario.correo">
+    </div>
+    <div class="mb-3">
+        <label for="passwordInput" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="passwordInput" @bind="usuario.password">
+    </div>
+    <button type="button" class="btn btn-success" @onclick="IniciarSesion">Ingresar</button>
+</form>
+
+@code {
+    UsuarioDTO usuario = new UsuarioDTO();
+    string token = null;
+
+    async Task IniciarSesion()
+    {
+        var result = await Http.PostAsJsonAsync("api/Usuario/Login", usuario);
+
+        if (result.IsSuccessStatusCode)
+        {
+
+            token = await result.Content.ReadAsStringAsync();
+            await JS.InvokeAsync<object>("localStorage.setItem", "Token", token);
+            await AuthStateProv.GetAuthenticationStateAsync();
+        }
+        else
+        {
+            var errorMessage = await result.Content.ReadAsStringAsync();
+            Console.WriteLine($"Error al iniciar sesión: {errorMessage}");
+        }
+    }
+}

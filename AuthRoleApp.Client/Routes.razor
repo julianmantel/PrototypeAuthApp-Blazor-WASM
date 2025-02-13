@@ -1,0 +1,10 @@
+﻿<Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+	<Router AppAssembly="typeof(Program).Assembly">
+		<Found Context="routeData">
+			<Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+				<NotAuthorized> <h1>No tienes acceso</h1>  </NotAuthorized>
+			</Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView>
+			<FocusOnNavigate RouteData="routeData" Selector="h1" />
+		</Found>
+	</Router>
+</Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>

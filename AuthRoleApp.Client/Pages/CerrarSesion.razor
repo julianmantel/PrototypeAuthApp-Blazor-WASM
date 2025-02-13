@@ -1,0 +1,16 @@
+﻿@using AuthRoleApp.Shared
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject IJSRuntime JS
+@inject AuthenticationStateProvider AuthStateProv
+
+<button type="button" class="btn btn-primary" @onclick="Salir">Cerrar Sesion</button>
+
+@code {
+
+	async Task Salir()
+	{
+		await JS.InvokeVoidAsync("localStorage.removeItem", "Token");
+		await AuthStateProv.GetAuthenticationStateAsync();
+	}
+}

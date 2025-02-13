@@ -1,0 +1,22 @@
+﻿@using AuthRoleApp.Shared
+@inject HttpClient Http
+
+
+<h3>Registro</h3>
+<label>Ingresar Usuario</label>
+<input type="text" class="form-control" @bind-value=nuevoUsuario.correo />
+<label>Password</label>
+<input type="text" class="form-control" @bind-value=nuevoUsuario.password />
+<br />
+<button class="btn btn-success" @onclick=Registrar>Registrar</button>
+<p>@Respuesta</p>
+@code {
+	UsuarioDTO nuevoUsuario = new UsuarioDTO();
+	string Respuesta = "Procesando...";
+	async Task Registrar()
+	{
+		var resultado = await Http.PostAsJsonAsync("api/Usuario/Registrar", nuevoUsuario);
+		Respuesta = await resultado.Content.ReadAsStringAsync();
+	}
+}
+
