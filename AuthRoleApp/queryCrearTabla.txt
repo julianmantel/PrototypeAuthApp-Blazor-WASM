@@ -3,7 +3,7 @@ CREATE TABLE Usuarios (
     correo VARCHAR(200) NULL,
     password_hash BYTEA NULL,
     password_salt BYTEA NULL,
-    token VARCHAR NULL,
-    rol VARCHAR(200) NULL,
+    token TEXT NULL,
+    rol VARCHAR(200) NOT NULL DEFAULT 'Usuario'
     nombre_usuario VARCHAR(200) NULL
 );
